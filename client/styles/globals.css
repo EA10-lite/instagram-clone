@@ -1,0 +1,83 @@
+:root {
+  --black: #000;
+  --blue: #0095f6;
+  --danger: #ff5252;
+  --darkgray: rgb(142,142,142);
+  --gray: rgb(219,219,219);
+  --grey: rgb(255,255,255);
+  --lightgray: rgb(239,239,239);
+  --white: #fff;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: rgb(250,250,250);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+h1,h2,h3,h4,h5,h6,p,li {
+  margin:0;
+}
+ul {
+  margin:0;
+  padding:0;
+  list-style-type: none;
+}
+
+
+.content .swiper {
+  width:100% !important;
+  height: 100% !important;
+}
+
+.content .swiper-slide {
+  width: 100% !important;
+  position: relative;
+  height: 100% !important;
+}
+.modalPost .swiper {
+  width: 100% !important;
+  height:100vh !important;
+}
+.storySwiper .swiper {
+  width: 100% !important;
+  height:100vh !important;
+}
+.storySwiper .swiper-slide {
+  width: 70px !important;
+  height:95px;
+}
+.content .swiper-button-prev,.modalPost .swiper-button-next, .content .swiper-button-next, .modalPost .swiper-button-prev, .storySwiper .swiper-button-next, .storySwiper .swiper-button-prev{
+  width: 24px !important;
+  height: 24px !important;
+  background-color: #ddd;
+  border-radius: 50%;
+  object-fit: contain;
+  border: 1px solid rgb(219,219,219);
+}
+
+.content .swiper-button-prev::after,.modalPost .swiper-button-next::after, .modalPost .swiper-button-prev::after, .content .swiper-button-next::after, .storySwiper .swiper-button-next::after, .storySwiper .swiper-button-prev::after{
+  font-size: 13px !important;
+  font-weight:bolder;
+  margin-left: -2px;
+  color:black !important;
+}
+.content .swiper-button-next, .storySwiper .swiper-button-next{
+  margin-left: 0;
+  padding-left: 3px;
+}
+
+.storySwiper .swiper-button-next, .storySwiper .swiper-button-prev {
+  top:50px !important;
+}

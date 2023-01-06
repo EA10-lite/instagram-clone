@@ -1,0 +1,138 @@
+/* POST DETAILS - ID */
+.container {
+    margin: auto;
+    margin-top: 100px;
+}
+.detailsContainer {
+    background-color: white;
+    border: 1px solid rgb(219,219,219);
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    height: 600px;
+    margin: 100px auto 0;
+    max-width: 821px;
+    overflow: hidden;
+}
+
+.imageSection {
+    border-right: 1px solid rgb(219,219,219);
+    grid-column: 1 / 4;
+    height: 600px;
+    grid-row: 1 / 5;
+}
+.header {
+    border-bottom: 1px solid rgb(219,219,219);
+    grid-column: 4 / 6;
+    height: 60px;
+}
+.footer {
+    left:0;
+    grid-column: 4 / 6;
+    height: 43px;
+}
+
+.body {
+    grid-column: 4 / 6;
+    height: 400px;
+    overflow: scroll;
+}
+.body::-webkit-scrollbar {
+    display: none;
+}
+
+.otherPosts {
+    max-width: 935px;
+    margin: auto;
+    margin-top: 60px;
+}
+.heading {
+    border-bottom: 1px solid rgb(219,219,219);
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    text-align: center;
+}
+
+.cardContainer {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 2%;
+}
+.cardItem {
+    aspect-ratio: 1/1;
+}
+.btnSection {
+    grid-column: 4 / 6;
+    height: 60px;
+    padding:10px ;
+    border-top: 1px solid rgb(239,239,239);
+}
+.icons {
+    display: flex;
+}
+.icon {
+    width:26px;
+    height:26px;
+}
+.icon:hover {
+    color: rgb(142,142,142);
+}
+
+.iconContainer {
+    margin-right: 16px;
+}
+
+.likes {
+    font-weight: 600;
+    font-size: 16px;
+    font-family: inherit;
+    color: rgb(0, 55, 107);
+}
+
+@media screen and (max-width:768px) {
+    .detailsContainer {
+        border: 1px solid rgb(219,219,219);
+        height: auto;
+        width: 80%;
+    }
+    .imageSection {
+        grid-column: 1 / 6;
+        grid-row: 2 / 3;
+        max-height: 400px !important;
+    }
+
+    .otherPosts {
+        display: none;
+    }
+    .header {
+        grid-column: 1 / 6;
+        grid-row: 1 / 2;
+    }
+    .footer {
+        position:fixed;
+        bottom:0;
+        background-color: white;
+        width: 100%;
+    }
+    .body {
+        grid-row: 4 / 5;
+        grid-column: 1 / 6;
+        height: auto;
+    }
+    .btnSection {
+        grid-column: 1 / 6;
+        grid-row: 3 / 4;
+        border-bottom: 1px solid rgb(239,239,239);
+        height: auto;
+    }
+}
+
+@media screen and (max-width:568px) {
+    .detailsContainer {
+        width: 100%;
+        border:none;
+        border-radius: 0;
+    }
+}

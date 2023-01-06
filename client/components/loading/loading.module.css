@@ -1,0 +1,26 @@
+.container {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.loaderIcon {
+    animation: spin 1.2s linear infinite !important;
+    font-weight: 800;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% {transform:  rotate(360deg);}
+}
+
+
+@media screen and (max-width:500px){
+    .formContainer {
+        width: 90%;
+        margin:64px auto 0 ;
+        padding:20px;
+    }
+    .inputContainer {
+        width: 100%;
+    }
+}

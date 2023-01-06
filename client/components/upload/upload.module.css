@@ -1,0 +1,244 @@
+/* post-uploading */
+.uploadContainer {
+    background-color: rgba(0,0,0,0.4);
+    bottom: 0;
+    height: 100%;
+    left:0;
+    position: fixed;
+    right: 0;
+    top:0;
+    width: 100%;
+    z-index: 9999;
+}
+.uploadOverlay {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+}
+.uploadIconContainer {
+    position: absolute;
+    right:20px;
+    top:20px;
+}
+.uploadContent {
+    background-color: white;
+    border-radius: 12px;
+    height: 450px;
+    overflow: hidden;
+    width: 400px;
+}
+.uploadHeader {
+    border-bottom: 1px solid rgb(219,219,219);
+    height: 50px;
+    padding:10px 0;
+    position: relative;
+    text-align: center;
+}
+.uploadHeaderBtns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.uploadTitle {
+    font-weight: 600;
+    font-size: 16px;
+    font-family: inherit;
+    color:rgb(38,38,38);
+}
+.uploadHeaderBtn {
+    padding:6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+.postBtn {
+    background-color: transparent;
+    border: none;
+    color: #0095f6;
+}
+.lightPostBtn {
+    opacity: 0.5;
+}
+.uploadForm {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 50px);
+    justify-content: center;
+    width: 100%;
+}
+.uploadImgContainer {
+    margin-bottom: 10px;
+}
+.uploadInput {
+    height: 0;
+    width: 0;
+}
+.uploadLabel span {
+    background-color: dodgerblue;
+    border-radius: 5px;
+    color:white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 6px 16px ;
+}
+.uploadIcon {
+    font-weight: 100 !important;
+}
+.uploadText {
+    color:rgb(38,38,38);
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 26px;
+    margin-bottom: 32px;
+}
+.uploadPostImagesContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 32px;
+}
+.uploadPostImageContainer {
+    border-radius: 8px;
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+    width: 80px;
+    margin-right: 10px;
+}
+.imagePreview {
+    height:100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.imagePreviews {
+    display: flex;
+    flex-direction:column;
+    flex:1;
+    height:100%;
+}
+.imagePreviewContainer {
+    height: 250px;
+    margin-bottom: 16px;
+    width: 100%;
+}
+.images {
+    display: flex;
+    align-items: center;
+    overflow: auto;
+}
+.image {
+    min-width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    margin-left: 8px;
+    overflow: hidden;
+}
+.removeImageBtn {
+    align-items: center;
+    background-color: white;
+    border: 1px solid rgb(219,219,219);
+    border-radius: 50%;
+    display: flex;
+    height:24px;
+    justify-content: center;
+    position: absolute;
+    right:6px;
+    top:4px;
+    width: 24px;
+    z-index: 1;
+}
+.uploadTopicDropdown {
+    background-color: white;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    left: 0;
+    margin-top: 15px;
+    position: absolute;
+    overflow: hidden;
+    transition: height .5s ease-in-out;
+    width: 100%;
+    z-index: 100;
+}
+.activeTopicDropdown {
+    height: 400px;
+    padding:16px;
+    transition: height .3s;
+}
+.uploadTopicTextArea {
+    border:none;
+    border-radius: 8px;
+    flex-grow: 1;
+    font-family: inherit;
+    font-size: 16px;
+    margin-bottom: 16px;
+    outline:none;
+    resize: none;
+    padding: 20px;
+    width: 100%;
+}
+
+.posterDetails {
+    align-items: center;
+    display: flex;
+    padding:10px 20px;
+}
+
+.username {
+    font-size: 20px;
+    font-family: inherit;
+    font-weight: 600;
+    color:rgb(38,38,38);
+    margin-left: 16px;
+}
+.avatar {
+    border-radius: 50%;
+}
+
+.locationInputContainer {
+    align-items: center;
+    border: 1px solid rgb(219,219,219);
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 20px;
+}
+.locationInput {
+    border:none;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    width: 100%;
+}
+
+.video {
+    height:90%;
+    object-fit: contain;
+    width: 100%;
+}
+
+.clearBtn {
+    text-align: center;
+    padding:6px 16px;
+    width: 100px;
+    margin-left: calc(100% - 100px);
+    border:1px solid rgb(219,219,219);
+    position: relative;
+    bottom: 10px;
+    right: 20px;
+    color:rgb(38,38,38);
+    background-color: #f0f0f8;
+}
+
+@media screen and (max-width:480px) {
+    .uploadContent {
+        width: 90%;
+    }
+}

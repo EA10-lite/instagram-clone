@@ -1,0 +1,47 @@
+.container {
+    padding-top: 15px;
+    position: relative;
+}
+.content {
+    display: flex;
+    justify-content: space-between;
+    margin:auto;
+    max-width: 821px;
+}
+.left {
+    width:470px;
+}
+.storyContainer {
+    background-color: white;
+    padding: 16px 0;
+    width:100%;
+    border: 1px solid rgb(219,219,219);
+    margin-bottom: 24px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.right{
+    width:319px;
+    position: relative;
+}
+.suggestionContainer {
+    position:sticky;
+    top:100px;
+}
+
+
+@media screen and (max-width:874px){
+    .right {
+        display: none;
+    }
+    .left {
+        margin: auto;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .left {
+        width: 100%;
+        padding:16px;
+    }
+}

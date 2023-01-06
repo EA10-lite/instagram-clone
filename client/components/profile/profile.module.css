@@ -1,0 +1,125 @@
+.container {
+    max-width: 935px;
+    margin: auto;
+}
+
+/* header */
+
+.profileHeader {
+    display: flex;
+    padding:30px 0 50px 0;
+    border-bottom: 1px solid rgb(219,219,219);
+}
+.profileImgContainer {
+    border:1px solid rgb(219,219,219);
+    border-radius: 50%;
+    flex: 1 0 127;
+    height:180px;
+    margin-right: 40px;
+    overflow: hidden;
+    position: relative;
+    width: 180px;
+}
+
+.details {
+    margin-top: 40px;
+}
+.flex1 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.username {
+    font-size: 28px;
+    font-family: inherit;
+    font-weight: 300;
+    color:rgb(38,38,38)
+}
+.linkContainer {
+    border: 1px solid rgb(219,219,219);
+    padding:6px 12px;
+    border-radius: 4px;
+    margin-left: 16px;
+}
+.link {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    color:rgb(38,38,38);
+}
+
+
+.numbers {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.numbers div {
+    margin-right: 40px;
+}
+.numbers p span {
+    font-weight: 600;
+}
+.numbers p {
+    font-weight: 400;
+    font-family: inherit;
+    font-size: 16px;
+}
+.name {
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 600;
+    color:rgb(38,38,38);
+    margin-bottom: 8px;
+}
+
+.label {
+    font-weight: 600;
+    font-family: inherit;
+    font-size: 20px;
+    margin: 24px auto;
+    padding-bottom: 24px;
+    text-align: center;
+    border-bottom: 1px solid rgb(219,219,219);
+}
+
+
+.cardContainer {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 4%;
+}
+
+.cardItem {
+    aspect-ratio: 1/1;
+}
+
+@media screen and (min-width:736px) {
+    .left {
+        flex-grow: 1;
+        flex-basis: 0;
+        margin-right: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .details {
+        flex-basis: 30px;
+        flex-grow: 2;
+    }
+}
+
+@media screen and (max-width:935px){
+    .profileHeader {
+        padding: 20px;
+    }
+}
+@media screen and (max-width:568px) {
+    .profileImgContainer {
+        width: 75px;
+        height: 75px;
+    }
+    .details {
+        margin-top: 0px;
+    }
+}

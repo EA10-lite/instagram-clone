@@ -1,0 +1,115 @@
+.header {
+    background-color: rgb(255,255,255);
+    border-bottom:1px solid rgb(219,219,219);
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index: 999;
+}
+
+.headerContainer {
+    align-items: center;
+    display: flex;
+    height: 60px;
+    justify-content:center;
+    margin:auto;
+    max-width: 975px;
+    padding:0 20px;
+    transition: height .2s ease-in-out;
+}
+.headerLogo{
+    flex:1 0 127px;
+}
+
+.headerSearchBox {
+    align-items: center;
+    background-color: rgb(239,239,239);
+    border-radius: 8px;
+    display: flex;
+    flex:0 1 auto;
+    font-family: inherit;
+    height:36px;
+    min-width: 125px;
+    padding:3px 16px;
+    position: relative;
+    width:268px;
+}
+.headerInput {
+    background-color: transparent;
+    border:none;
+    color: rgb(142,142,142);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 25px;
+    outline:none;
+    width: 100%;
+}
+.headerSearchIcon {
+    color: rgb(142,142,142);
+    height: 20px;
+    margin-right: 12px;
+    width: 20px;
+}
+.headerNav {
+    align-items: center;
+    display: flex;
+    flex:1 0 127px;
+    justify-content: flex-end;
+    padding-left: 24px;
+}
+.headerIcon {
+    height: 26px;
+    margin-left: 22px;
+    width: 26px;
+    color: black;
+}
+.headerRounded {
+    border-radius: 50%;
+}
+.headerAvatar {
+    border:1px solid rgb(219,219,219);
+    border-radius: 50%;
+    height:24px;
+    margin-left: 22px;
+    overflow: hidden;
+    width: 24px;
+}
+.headerProfile {
+    position: relative;
+}
+.dropdownContainer {
+    background-color: white;
+    border:1px solid rgb(219,219,219);
+    border-radius: 4px;
+    margin-top: 6px;
+    position: absolute;
+    width: 150px;
+}
+.dropdownItem {
+    align-items: center;
+    display: flex;
+    padding:10px;
+    cursor: default;
+}
+.dropdownItem:hover {
+    background-color: rgb(239,239,239);
+}
+.dropdownItemText {
+    margin-left: 8px;
+}
+
+@media screen and (max-width: 768px){
+    .headerSearchBox {
+        display: none;
+    }
+    .dropdownContainer {
+        left: -100px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .headerLogo {
+        flex:1;
+    }
+}

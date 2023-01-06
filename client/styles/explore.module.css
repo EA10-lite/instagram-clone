@@ -1,0 +1,15 @@
+
+.container {
+    margin:auto;
+    max-width: 821px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 2%;
+}
+.gridItem {
+    background-color: darkgray;
+    border: 1px solid #ddd;
+    aspect-ratio: 1/1;
+}

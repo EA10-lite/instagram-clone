@@ -1,0 +1,47 @@
+
+.postImgContainer {
+    width: 100%;
+    position: relative;
+    height: 100%;
+}
+.postImg {
+    cursor: pointer;
+}
+.overlay {
+    display: none;
+}
+.postImgContainer:hover .overlay {
+    cursor: pointer;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.item {
+    display: flex;
+    align-items: center;
+}
+.likes, .comments{
+    color:white;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+}
+.likes {
+    margin-right: 24px;
+}
+.like, .comment{
+    color:white !important;
+    fill:white !important;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 6px;
+}
