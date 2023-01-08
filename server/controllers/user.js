@@ -3,6 +3,8 @@ const { User } = require("../models/users");
 const async_middleware = require("../middlewares/async");
 const { hash_password, compare_password } = require("../utils/hash");
 
+const _ = require("lodash");
+const mongoose = require("mongoose");
 
 const get_user_details  = async_middleware(async (req, res) => {
     const user = await User.findById(req.user._id);
@@ -34,7 +36,7 @@ const register_user = async_middleware(async (req, res) => {
     let user = await User.findOne({ email: req.body.email, username: req.body.username });
     if(user) return res.status(400).send({ error: "user already exist with the email or username." });
 
-    user = new User({...req.body});
+    user = new User({...req.body });
     user.password = await hash_password(user.password);
     await user.save();
 
@@ -60,34 +62,54 @@ const reset_password = async_middleware(async (req, res) => {
     });
 });
 
-const follow_user = async_middleware(async (req, res) => {
-    // First find the user who's trying to consume this API - user1,
-    // if user1 does not exist, return an error message,
-    const user1 = await User.findById(req.user._id);
-    if(!user1) return res.status(400).send({ error: "Invalid Request - User does not exist." });
-    if(user1._id.equals(req.body.userId)) return res.status(400).send({ error: "Invalid Request: you cannot follow yourself." });
+const follow_user = async (req, res) => {
+    const session = await mongoose.startSession();
+    
+    const transactionOptions = {
+        readPreference: 'primary',
+        readConcern: { level: 'local' },
+        writeConcern: { w: 'majority' }
+      };
 
-    // Then find the account to be followed - user2,
-    // if user2 does not exist, return an error message.
-    const user2 = await User.findById(req.body.userId)
-    if(!user2) return res.status(404).send({ error: "user does not exist." })
+    session.startTransaction(transactionOptions);
 
-    // verify if user1 is already following user2,
-    // if user1 is already following user2, return an error
-    const is_following = user1.following.find(following => following.userId.equals(req.body.userId));
-    if(is_following) return res.status(400).send({ error: "Invalid request - user already follows this account" });
+    try {
+        // First find the user who's trying to consume this API - user1,
+        // if user1 does not exist, return an error message,
+        const user1 = await User.findById(req.user._id);
+        if(!user1) return res.status(400).send({ error: "Invalid Request - User does not exist." });
+        if(user1._id.equals(req.body.userId)) return res.status(400).send({ error: "Invalid Request: you cannot follow yourself." });
 
-    user1.following.push({ userId: user2._id });
-    user2.followers.push({ userId: user1._id });
-    await user1.save();
-    await user2.save();
+        // Then find the account to be followed - user2,
+        // if user2 does not exist, return an error message.
+        const user2 = await User.findById(req.body.userId);
+        if(!user2) return res.status(404).send({ error: "user does not exist." })
 
-    res.status(200).send({
-        data: _.pick(user1, ['usernmae', 'following']),
-        error: null,
-        message: `You are now following ${user2.username}`
-    });
-});
+        // verify if user1 is already following user2,
+        // if user1 is already following user2, return an error
+        const is_following = user1.following.find(following => following.userId.equals(req.body.userId));
+        if(is_following) return res.status(400).send({ error: "Invalid request - user already follows this account" });
+
+        // user1.following.addToSet({ userId: user2._id }, { session });
+        // user2.followers.addToSet({ userId: user1._id }, { session });
+
+        await User.updateOne({ _id: user1._id }, { $addToSet: { following: { userId: user2._id }}}, { session });
+        await User.updateOne({ _id: user2._id }, { $addToSet: { followers: { userId: user1._id }}}, { session });
+
+        await session.commitTransaction();
+        await session.endSession();
+
+        res.status(200).send({
+            error: null,
+            message: `You are now following ${user2.username}`
+        });
+    } catch (error) {
+        await session.abortTransaction();
+        await session.endSession();
+        console.log("SOMETHING FAILED")
+        res.status(400).send({ error: error.message });
+    }
+}
 
 const unfollow_user = async_middleware(async (req, res) => {
      // First find the user who's trying to consume this API - user1,
