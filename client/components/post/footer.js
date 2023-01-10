@@ -45,8 +45,8 @@ export default function PostFooter({ item, like_post, unlike_post }){
                         </Link>  
                     )} 
                     <div className={styles.comment}>
-                        <Link href={`/user/${item.comments[item.comments.length - 1].comment_by.username}`}>
-                            <a className={styles.posterName}>{ item.comments[item.comments.length - 1].comment_by.username } </a>
+                        <Link href={`/user/${item.comments[item.comments.length - 1].commentBy.username}`}>
+                            <a className={styles.posterName}>{ item.comments[item.comments.length - 1].commentBy.username } </a>
                         </Link>
                         <span className={styles.text}> { item.comments[item.comments.length - 1].comment} </span>
                     </div>   

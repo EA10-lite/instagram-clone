@@ -24,7 +24,6 @@ const ImagePreviews = ({ file_previews, media_urls, removeSelectedImage }) => {
                     <ImagePreview 
                         media_url={file} 
                         index={index}
-                        // handlePreviewChange={handlePreviewChange} 
                         removeSelectedImage={removeSelectedImage} 
                         type={media_urls[index].type}
                     />

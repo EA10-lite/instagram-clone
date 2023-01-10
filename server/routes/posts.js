@@ -10,6 +10,7 @@ const {
     create_post, 
     delete_post, 
     get_post, 
+    get_more_posts,
     get_posts, 
     like_post, 
     unlike_post
@@ -18,6 +19,7 @@ const {
 const router = express.Router();
 
 router.get("/", get_posts);
+router.get("/explore", get_more_posts);
 router.get("/:id", get_post);
 router.post("/", [auth, validate(post_validation_schema)], create_post );
 router.put("/comments/add", [auth, validate(comment_validation_schema)], add_comment);

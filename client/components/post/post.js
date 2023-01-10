@@ -29,7 +29,7 @@ export default function Post({
         e.preventDefault();
         set_loading(true);
         try { 
-            await posts.add_comment(item._id, { comment });
+            await posts.add_comment({ comment, postId: item._id, });
             set_comment('');
             update_comment(item._id, { comment, comment_by: { 
                 avatar: user?.avatar, 
@@ -68,13 +68,13 @@ export default function Post({
                     post={item}
                     modalRef={modalRef}
                     id={item._id}
-                    user={item.posted_by}
+                    user={item.postedBy}
                 />
             </div>
 
             <div className={styles.body}>
                 <PostBody 
-                    urls={item.media_urls}
+                    urls={item.media}
                 />
             </div>
 

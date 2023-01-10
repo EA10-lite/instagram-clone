@@ -23,8 +23,9 @@ import logo from '../assets/instagram.png';
 
 
 // utilities
-import validation from '../utils/validation';
 import auth_api from '../api/auth';
+import user_api from '../api/user';
+import validation from '../utils/validation';
 
 
 export default function Login(){
@@ -43,9 +44,9 @@ export default function Login(){
         set_loading(true);
         try {
             const response = await auth_api.login_user(values);
-            login(response);
+            await login(response, user_api.get_user);
+            await router.push("/");
             toast.success(response.data.message);
-            router.push("/");
         } catch (error) {
             toast.error('Login Failed');
             const { response: { data: { error: errorMessage }} } = error;

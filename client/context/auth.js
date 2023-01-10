@@ -1,26 +1,26 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children })=> {
     const { push } = useRouter();
 
-    const login = (res) => {
-        localStorage.setItem("ea10_instagram_user", JSON.stringify(res.data.data));
-
+    const login = (res, get_user) => {
         fetch("/api/auth/login", {
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ token: res.headers['x-auth-token']})
-        }).then(()=> push("/"))
+            body: JSON.stringify({ token: res.data.data})
+        })
+        .then(()=> get_user())
+        .then(res=> localStorage.setItem("user", JSON.stringify(res.data.data)))
+        .catch(err=> console.log("Something failed.", err));
     }
 
     const logout = () => {
-        localStorage.removeItem("ea10_instagram_user");
-
         fetch("/api/auth/logout", {
             method:"POST",
             headers: {
@@ -28,9 +28,10 @@ const AuthContextProvider = ({ children })=> {
             },
             body: JSON.stringify({})
         })
-
-        push('/login');
+        .then(()=> push("/login"))
+        .catch(()=> toast.error("Failed to log out!"))
     }
+
 
     return (
         <AuthContext.Provider value={{ login, logout }}>

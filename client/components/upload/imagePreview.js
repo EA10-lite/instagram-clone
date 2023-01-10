@@ -9,14 +9,14 @@ const ImagePreview = ({
     index=0,
     media_url, 
     removeSelectedImage,
-    type
+    type, 
 })=> {
     return (
         <div className={styles.imagePreview}>
             { removeSelectedImage && <div className={styles.removeImageBtn}>
                 <MdClose 
                     size={20} color="#000" 
-                    onClick={()=> removeSelectedImage(media_url, index)}
+                    onClick={()=> removeSelectedImage(index)}
                 />
             </div> }
             { media_url && <>
@@ -28,7 +28,12 @@ const ImagePreview = ({
                     height={"100%"}
                     className={styles.video}
                 />
-            </> : <Image src={media_url} alt='' layout='fill' objectFit='cover' /> } </>}
+            </> : <Image 
+                src={media_url} 
+                alt='' 
+                layout='fill' 
+                objectFit='cover' 
+            /> } </>}
         </div>
 )};
 

@@ -14,7 +14,7 @@ const registration_schema = {
 };
 
 const login_schema = {
-    email: Joi.string().email().min(5).max(50).required(),
+    name: Joi.string().email().min(5).max(50).required(),
     password: Joi.string().min(8).max(255).required(),
 }
 

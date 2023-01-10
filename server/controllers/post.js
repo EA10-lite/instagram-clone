@@ -18,7 +18,7 @@ const get_post = async_middleware(async (req, res) => {
     });
 });
 
-const get_posts = async_middleware( async (req, res) => {
+const get_posts = async_middleware(async (req, res) => {
     const posts = await Post
         .find()
         .populate('postedBy', 'avatar username')
@@ -32,7 +32,16 @@ const get_posts = async_middleware( async (req, res) => {
     });
 });
 
-const create_post = async_middleware( async (req, res) => {
+const get_more_posts = async_middleware(async (req, res) => {
+    const posts = await Post.aggregate([{ $sample: { size: 100 }}])
+
+    res.status(200).send({
+        data: posts,
+        error: null
+    });
+});
+
+const create_post = async_middleware(async (req, res) => {
     const user = await User.findById(req.user._id);
     if(!user) return res.status(400).send({ error: "You have to be logged in" });
 
@@ -49,7 +58,7 @@ const create_post = async_middleware( async (req, res) => {
     })
 });
 
-const add_comment = async_middleware( async (req, res) => {
+const add_comment = async_middleware(async (req, res) => {
     const user = await User.findById(req.user._id);
     if(!user) return res.status(400).send({ error: "invalid request!" });
 
@@ -66,7 +75,7 @@ const add_comment = async_middleware( async (req, res) => {
     });
 });
 
-const like_post = async_middleware( async (req, res) => {
+const like_post = async_middleware(async (req, res) => {
     const user = await User.findById(req.user._id);
     if(!user) return res.status(400).send({ error: "invalid request" });
 
@@ -87,7 +96,7 @@ const like_post = async_middleware( async (req, res) => {
     });
 });
 
-const unlike_post = async_middleware( async (req, res) => {
+const unlike_post = async_middleware(async (req, res) => {
     const user = await User.findById(req.user._id);
     if(!user) return res.status(400).send({ error: "invalid request" });
 
@@ -108,7 +117,7 @@ const unlike_post = async_middleware( async (req, res) => {
     });
 });
 
-const delete_post = async_middleware( async (req, res) => {
+const delete_post = async_middleware(async (req, res) => {
     // check if the post the user is trying to delete is created by the user
     const post = await Post.findOneAndRemove({ _id: req.params.id, postedBy: req.user._id });
     if(!post) return res.status(400).send({ error: "Post not found!" });
@@ -121,6 +130,7 @@ const delete_post = async_middleware( async (req, res) => {
 });
 
 module.exports = {
+    get_more_posts,
     get_post,
     get_posts,
     create_post,

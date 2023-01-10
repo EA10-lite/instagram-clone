@@ -19,7 +19,7 @@ export default function CommentInputField({
                     type="submit" 
                     className={`${styles.postBtn} ${comment.length && styles.activePostBtn}`}
                     disabled={comment.length > 0 || loading ? false : true }
-                > Post </button>
+                > { loading ? "Posting..." : "Post" } </button>
             </form>
         </div>
     )

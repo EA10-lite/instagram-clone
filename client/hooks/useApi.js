@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'; 
-import axios from 'axios'; 
 import { client } from '../api/posts';
 
 
@@ -21,11 +20,11 @@ const useApi = (url)=> {
     }
 
     useEffect(()=> {
+        const abortController = new AbortController();
         if(url){
-            const abortController = new AbortController();
             request(abortController.signal);
-            return ()=> abortController.abort();
         }
+        return ()=> abortController.abort();
     },[url])
 
     return {

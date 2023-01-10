@@ -64,8 +64,8 @@ const DropdownItem = ({ url, Icon, placeholder, closeDropdown, handleClick })=> 
 const LogoContainer = ({ logo })=> (
     <div className={styles.headerLogo}>
         <Link href="/">
-            <a>
-                <Image src={logo} alt='' width={120} height={30} objectFit="cover" />
+            <a className={styles.logo}>
+                <Image src={logo} alt='' width={120} height={30} objectFit="cover" layout="fixed" />
             </a>
         </Link>
     </div>
@@ -97,7 +97,7 @@ const SearchBar = ()=> (
 
 export default function Header(){
     const { logout } = useContext(AuthContext);
-    const { user_data: user } = useContext(UserContext)
+    const { user_data: user } = useContext(UserContext);
     
     const [ open, setOpen ] = useState(false);
     const closeUploadModal = ()=> {

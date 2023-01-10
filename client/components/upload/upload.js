@@ -9,7 +9,7 @@ import ImagePreviews from './ImagePreviews';
 import Loading from '../loading/loading';
 
 // context
-import { UserContext } from '../../context/auth';
+import { UserContext } from '../../context/user';
 
 // icons
 import { MdClose, MdLocationOn } from 'react-icons/md';
@@ -29,11 +29,10 @@ export default function Upload({ closeUploadModal }){
     const [ selected_file, set_selected_file ] = useState();
     const [ file_previews, set_file_previews ] = useState([]);
     const [ media_urls, set_media_urls ] = useState([]);
-    
-    const [ caption, set_caption ] = useState();
-    const [ location, set_location ] = useState();
-
+    const [ caption, set_caption ] = useState('');
+    const [ location, set_location ] = useState('');
     const [ loading, set_loading ] = useState(false);
+
     const handleSubmit = async (e)=> {
         e.preventDefault();
         try {
@@ -41,9 +40,16 @@ export default function Upload({ closeUploadModal }){
             const assets = [];
             for(const media_url of media_urls){
                 const data = await upload.upload_post_media_files(media_url);
-                assets.push({ media_type: data.resource_type, url: data.secure_url });
+                assets.push({ type: data.resource_type, url: data.secure_url });
             }
-            await posts.create_post({ caption, location, media_urls: [...assets] });
+            if(caption.length > 0 && location.length > 1){
+                await posts.create_post({ caption, location, media_urls: [...assets] });
+            }
+            else if (caption.length > 0){
+                await posts.create_post({  media: [...assets] });
+            }
+            await posts.create_post({  media: [...assets] });
+
             toast.success("Post successfully created")
             closeUploadModal();
         } catch (error) {
@@ -64,13 +70,15 @@ export default function Upload({ closeUploadModal }){
         }
     };
 
-    const removeSelectedImage = (item, index)=> {
-        set_file_previews(files=> files.filter(file=> file !== item));
-
+    const removeSelectedImage = (index)=> {
         let temp_image_store = [...media_urls];
         temp_image_store.splice(index,1);
 
+        let temp_preview_store = [...file_previews];
+        temp_preview_store.splice(index,1);
+
         set_media_urls(temp_image_store);
+        set_file_previews(temp_preview_store);
     };
 
     useEffect(()=>{
@@ -142,7 +150,11 @@ export default function Upload({ closeUploadModal }){
                                     </div>
                                 </div> }
                             </div>
-                            <button type="submit" className={`${styles.uploadHeaderBtn} ${styles.postBtn}`}> Upload Post </button>
+                            <button 
+                                type="submit" 
+                                className={`${styles.uploadHeaderBtn} ${styles.postBtn}`}
+                                disabled={loading ? true : false}
+                            > { !loading ? "Upload Post" : "Uploading..." } </button>
                         </div>}
                     </div>
                     { media_urls.length <= 0 ? <div className={styles.uploadForm}>

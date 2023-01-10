@@ -1,7 +1,8 @@
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import styles from './card.module.css';
-import { Image } from 'cloudinary-react';
+import { Video } from 'cloudinary-react';
 
 // icons
 import { FiHeart } from 'react-icons/fi';
@@ -26,16 +27,15 @@ export default function Card({ post }){
                             </div>
                         </div>
                     </div>
-                    { post.media_urls[0].media_type === "image" ? <Image 
-                        cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
-                        publicId={post.media_urls[0].url}
-                        width={"100%"}
-                        height={"100%"}
-                        crop="scale"
+                    { post.media[0].type === "image" ? <Image 
+                        src={post.media[0].url}
+                        alt=""
+                        layout="fill"
+                        objectFit="cover"
                     /> : 
                     <Video 
                         cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
-                        publicId={post.media_urls[0].url}
+                        publicId={post.media[0].url}
                         width={"100%"}
                         height={"100%"}
                         crop="scale"

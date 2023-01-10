@@ -1,6 +1,7 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from './post.module.css';
-import { Image, Video } from "cloudinary-react";
+import { Video } from "cloudinary-react";
 
 // swiper
 import { Swiper, SwiperSlide} from 'swiper/react';
@@ -30,13 +31,12 @@ export default function PostBody({ urls }){
                     <SwiperSlide key={index}>
                         <div className={styles.post}>
                             <div className={styles.postImgContainer}>
-                                { url.media_type === "image" ? <Image 
-                                    cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
-                                    publicId={url.url}
-                                    width={"100%"}
-                                    height={"100%"}
-                                    crop="scale"
-                                /> : 
+                                {url.type === 'image' ? <Image 
+                                    src={url.url}
+                                    alt=""
+                                    layout="fill"
+                                    objectFit="cover"
+                                />: 
                                 <Video 
                                     cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
                                     publicId={url.url}
