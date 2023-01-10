@@ -14,7 +14,7 @@ import PostHeader from '../../components/post/header';
 import PostBody from '../../components/post/body';
 
 // context
-import { AuthContext } from '../../context/auth';
+import { UserContext } from '../../context/user';
 
 // icons
 import { BsChat } from 'react-icons/bs';
@@ -29,7 +29,7 @@ import toast from 'react-hot-toast';
 
 export default function PostDetails(){
     const { query } = useRouter();
-    const { user } = useContext(AuthContext);
+    const { user_data: user } = useContext(UserContext);
 
     const url = query.id ? urls.post_url+query.id : undefined;
     const { data, loading: data_loading, error, set_data } = useApi(url);
@@ -37,9 +37,10 @@ export default function PostDetails(){
     // comment
     const [ comment, set_comment ] = useState('');
     const [ loading, set_loading ] = useState(false);
+
     const update_comment = (item) => {
         let current_post = { ...data };
-        current_post.post.comments.push(item);
+        current_post.comments.push(item);
         set_data(current_post);
     }
 
@@ -47,9 +48,9 @@ export default function PostDetails(){
         e.preventDefault();
         set_loading(true);
         try { 
-            await posts.add_comment(data?.post?._id, { comment });
+            await posts.add_comment({ comment, postId: data?._id });
             set_comment('');
-            update_comment({ comment, comment_by: { 
+            update_comment({ comment, commentBy: { 
                 avatar: user?.avatar, 
                 username: user?.username, 
                 _id: user?._id 
@@ -63,24 +64,25 @@ export default function PostDetails(){
     
 
     // likes 
-    const is_liked = data?.post?.likes?.find(like=> like.like_by === user?._id);
+    let is_liked = data?.likes?.find(like=> like?.likedBy._id === user?._id);
+
     const update_likes_add = (item) => {
         let current_post = { ...data };
-        current_post.post.likes.push(item);
+        current_post.likes.push({...item});
         set_data(current_post);
     }
 
     const update_likes_remove = (userId) => {
         let current_post = { ...data };
-        let like_index = current_post.post.likes.indexOf(current_post.post.likes.find(likes=> likes.like_by === userId));
-        current_post.post.likes.splice(like_index,1);
+        let like_index = current_post.likes.indexOf(current_post.likes.find(likes=> likes.likedBy === userId));
+        current_post.likes.splice(like_index,1);
         set_data(current_post);
     }
 
     const like_post = async ()=> {
         try {
-            await posts.like_post(data?.post?._id);
-            update_likes_add({ like_by: user?._id })
+            await posts.like_post(data?._id);
+            update_likes_add({ likedBy: { ...user }})
         } catch (error) {
             toast.error("something failed please try again.")
         }
@@ -88,7 +90,7 @@ export default function PostDetails(){
 
     const unlike_post = async () => {
         try {
-            await posts.unlike_post(data?.post?._id);
+            await posts.unlike_post(data?._id);
             update_likes_remove(user?._id);
         } catch (error) {
             toast.error("Something failed, please try again.")
@@ -102,17 +104,17 @@ export default function PostDetails(){
             
             { data && <div className={styles.detailsContainer}>
                 <div className={styles.imageSection}>
-                    <PostBody urls={data?.post?.media_urls} />
+                    <PostBody urls={data?.media} />
                 </div>
                 <div className={styles.header}>
                     <PostHeader 
-                        user={data?.post?.posted_by}
+                        user={data?.postedBy}
                     />
                 </div>
                 <div className={styles.body}>
                     { data?.post?.caption && <Caption caption={data?.post?.caption} user={data?.post.posted_by} /> }
                     
-                    { data?.post?.comments?.map((comment)=> (
+                    { data?.comments?.map((comment)=> (
                         <PostComment key={comment._id} comment={comment} />
                     ))}
                 </div>
@@ -129,7 +131,7 @@ export default function PostDetails(){
                             <FiSend className={`${styles.icon}`} />
                         </div>
                     </div>
-                    { data?.post?.likes?.length > 0 && <span className={styles.likes}> { data?.post?.likes.length } likes </span>}
+                    { data?.likes?.length > 0 && <span className={styles.likes}> { data?.likes.length } likes </span>}
                 </div>
                 <div className={styles.footer}>
                     <CommentInputField 

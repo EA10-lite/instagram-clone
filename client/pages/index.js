@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import styles from '../styles/home.module.css';
 
 // components
@@ -8,6 +9,7 @@ import Post from '../components/post/post';
 import Suggestion from '../components/suggestion/suggestion';
 
 // utils
+import posts from '../api/posts';
 import urls from '../utils/urls';
 import useApi from '../hooks/useApi';
 

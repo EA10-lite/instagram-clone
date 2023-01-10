@@ -33,7 +33,7 @@ const register_user = async_middleware(async (req, res) => {
     const token = user.generateAuthToken();
 
     res.header('x-auth-token', token).status(201).send({
-        data: _.pick(user, ['name', 'username', 'avatar']),
+        data: _.pick(user, ['name', 'username', 'avatar', '_id']),
         error: null,
         message: "registration successful."
     });

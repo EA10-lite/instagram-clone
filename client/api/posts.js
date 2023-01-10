@@ -12,6 +12,10 @@ const like_post_endpoint = "/posts/likes/add";
 const post_endpoint = "/posts";
 const unlike_post_endpoint = "/posts/likes/remove";
 
+const get_post = () => {
+    return client.get(post_endpoint);
+}
+
 const add_comment = (body) => {
     return client.put(add_comment_endpoint, { ...body });
 }
@@ -35,6 +39,7 @@ export default {
     add_comment,
     create_post,
     delete_post,
+    get_post,
     like_post,
     unlike_post,
     

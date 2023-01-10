@@ -10,17 +10,19 @@ export default function PostComment({ comment }){
     return (
         <div className={styles.comment}>
             <div className={styles.imageContainer}>
-                { comment.comment_by.avatar && <Image 
-                    src={comment?.comment_by?.avatar}
-                    alt={comment?.comment_by?.username}
+                { comment.commentBy.avatar && <Image 
+                    src={comment?.commentBy?.avatar}
+                    alt={comment?.commentBy?.username}
                     objectFit="cover"
-                    layout='fill'
+                    layout='fixed'
+                    width={36}
+                    height={36}
                 /> }
-                { !comment.comment_by.avatar && <MdAccountCircle size="36" /> }
+                { !comment.commentBy.avatar && <MdAccountCircle size="36" /> }
             </div>
             <div className={styles.text}>
-                <Link href={`/user/${comment.comment_by.username}`}>
-                    <a className={styles.username}> { comment.comment_by.username } </a>
+                <Link href={`/user/${comment.commentBy.username}`}>
+                    <a className={styles.username}> { comment.commentBy.username } </a>
                 </Link>
                 <span> { comment.comment } </span>
             </div>

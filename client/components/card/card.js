@@ -46,3 +46,4 @@ export default function Card({ post }){
         </Link>
     )
 }
+

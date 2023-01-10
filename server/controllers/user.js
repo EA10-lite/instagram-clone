@@ -10,7 +10,7 @@ const get_user_details  = async_middleware(async (req, res) => {
     if(!user) return res.status(404).send({ error: "user not found." });
 
     res.status(200).send({
-        data: _.pick(user, ['name', 'username', 'avatar' ]),
+        data: _.pick(user, ['name', 'username', 'avatar', '_id']),
         error: null
     });
 });
