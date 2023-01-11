@@ -1,8 +1,8 @@
 
 const mongoose = require("mongoose");
+const logger = require("../middlewares/logger");
 
 module.exports = () => {
     mongoose.connect("mongodb://localhost/instagram")
-        .then(()=> console.log("connecting to mongodb"))
-        .catch(err=> console.log("failed to connect to mongodb", err))
+        .then(()=> logger.info("connecting to mongodb"))
 }
